@@ -43,3 +43,27 @@ To get started with this project, you'll need to follow these simple steps to se
 6. Start Using the Dashboard:
   - Once the data is refreshed, you can start exploring the interactive cryptocurrency dashboard.
 
+## Usage Instructions
+The Power BI report mimics the main CoinGecko website, providing a user-friendly interface to explore cryptocurrency data. Below are the key instructions on how to navigate and interact with the report.
+
+### 1. Main Dashboard Overview
+- The main page of the report provides a comprehensive view of the cryptocurrency market:
+  - **Global Market Overview**: At the top of the page, you'll find a summary of the global cryptocurrency market, including metrics like total market capitalization, 24-hour trading volume, and the number of active coins.
+  - **Cryptocurrency Table**: Below the global overview, a detailed table lists cryptocurrencies along with their:
+    - Logo, name, and symbol
+    - Current price
+    - Percentage changes (e.g., 24-hour, 7-day)
+    - Other key metrics like market cap and trading volume
+  - **Customise Button**:
+    - Adjust the visibility of specific columns.
+    - Adjust the visibility of specific columns.
+![image](https://github.com/user-attachments/assets/6f2b483f-d292-4643-81db-20dcbec50bbf)
+
+## 2. Drill-Through to Coin Details
+- You can right-click on a cryptocurrency in the main table and use the **Drill-Through** feature to access a detailed report for that coin.
+- The detailed page includes:
+  - **Historical Chart**: Visualizes the selected coin’s price, market cap, and volume over time (free API provide 1 year of historical price data).
+  - Additional insights and metrics specific to the selected cryptocurrency.
+ ![image](https://github.com/user-attachments/assets/e521dfa5-ccab-4fa4-96a1-cee112d5b2a7)
+
+  
