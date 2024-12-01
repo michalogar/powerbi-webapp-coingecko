@@ -92,49 +92,49 @@ One of the core aspects of this project is fetching cryptocurrency data from the
       7. Example M Code for Recursive Function:
          ```
          let
-    // Function to retrieve paginated data from the API
-    getData = (offset as number) =>
-    let
-        // Define the API URL with dynamic page offset
-        url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=250&sparkline=true&page=" & Number.ToText(offset),
-        
-        // Define headers, including API key for authorization
-        headers = [
-            Accept = "application/json",
-            #"x-cg-demo-api-key" = #"api-key"
-        ],
-        
-        // Make the API request with the defined headers
-        response = Web.Contents(url, [Headers=headers]),
-        
-        // Convert the binary response to text format
-        responseText = Text.FromBinary(response),
-        
-        // Parse the JSON response into a Power Query structure (table or record)
-        result = Json.Document(responseText)
-    in
-        result,
-
-    // Calculate the number of pages needed by dividing the total number of coins by 250 (items per page) and rounding up
-    pageNo = Number.RoundUp(#"No of Coins"/250, 0),
-
-    // Set the number of coins to filter
-    toFilter = #"No of Coins",
-
-    // Generate a list of offsets for pagination; adjust the second argument as needed for more pages
-    offsetRange = List.Numbers(1, pageNo),
-    
-    // Transform each offset into a separate API call, creating a list of results
-    Source = List.Transform(offsetRange, each getData(_)),
-
-    // Convert the list of lists into a single table
-    convertToTable = Table.FromList(Source, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
-    
-    // Expand the data from each page into individual rows in the table
-    #"Expanded Column1" = Table.ExpandListColumn(convertToTable, "Column1"),
-    #"Kept First Rows" = Table.FirstN(#"Expanded Column1",toFilter)
-in
-    #"Kept First Rows"
+              // Function to retrieve paginated data from the API
+              getData = (offset as number) =>
+              let
+                  // Define the API URL with dynamic page offset
+                  url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=250&sparkline=true&page=" & Number.ToText(offset),
+                  
+                  // Define headers, including API key for authorization
+                  headers = [
+                      Accept = "application/json",
+                      #"x-cg-demo-api-key" = #"api-key"
+                  ],
+                  
+                  // Make the API request with the defined headers
+                  response = Web.Contents(url, [Headers=headers]),
+                  
+                  // Convert the binary response to text format
+                  responseText = Text.FromBinary(response),
+                  
+                  // Parse the JSON response into a Power Query structure (table or record)
+                  result = Json.Document(responseText)
+              in
+                  result,
+          
+              // Calculate the number of pages needed by dividing the total number of coins by 250 (items per page) and rounding up
+              pageNo = Number.RoundUp(#"No of Coins"/250, 0),
+          
+              // Set the number of coins to filter
+              toFilter = #"No of Coins",
+          
+              // Generate a list of offsets for pagination; adjust the second argument as needed for more pages
+              offsetRange = List.Numbers(1, pageNo),
+              
+              // Transform each offset into a separate API call, creating a list of results
+              Source = List.Transform(offsetRange, each getData(_)),
+          
+              // Convert the list of lists into a single table
+              convertToTable = Table.FromList(Source, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+              
+              // Expand the data from each page into individual rows in the table
+              #"Expanded Column1" = Table.ExpandListColumn(convertToTable, "Column1"),
+              #"Kept First Rows" = Table.FirstN(#"Expanded Column1",toFilter)
+          in
+              #"Kept First Rows"
          ```
 
 
