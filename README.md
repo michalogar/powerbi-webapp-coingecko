@@ -194,6 +194,7 @@ One of the core aspects of this project is fetching cryptocurrency data from the
 This project was created with the following goals:
 - **Showcasing Web-App-Like Dashboards**: Highlighting how Power BI can be used to design interactive dashboards that mimic the functionality and aesthetics of a web application.
 - **Utilize Advanced Power Query Techniques**: Showcase recursive functions and parameterized data retrieval for handling API rate limits and pagination.
+- **Promote Native Visuals**: Highlight the power of Power BI’s native visuals by creating professional-grade dashboards without custom visualizations.
 
 ## License
 This project is licensed under the **MIT License**. 
