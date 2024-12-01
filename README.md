@@ -187,7 +187,13 @@ One of the core aspects of this project is fetching cryptocurrency data from the
 
 3. Handling API Rate Limits
    - To stay within the API’s rate limits, I used `Function.InvokeAfter()` as a delay mechanism into the recursive function
-     - [LINK Microsoft Documentation](https://learn.microsoft.com/en-us/powerquery-m/function-invokeafter)
-     - [LINK Chris Webb's BI Blog](https://blog.crossjoin.co.uk/2015/04/30/using-function-invokeafter-in-power-query/)
+     - [Microsoft Documentation](https://learn.microsoft.com/en-us/powerquery-m/function-invokeafter)
+     - [Chris Webb's BI Blog](https://blog.crossjoin.co.uk/2015/04/30/using-function-invokeafter-in-power-query/)
 
-  
+## Project Purpose
+This project was created with the following goals:
+- **Showcasing Web-App-Like Dashboards**: Highlighting how Power BI can be used to design interactive dashboards that mimic the functionality and aesthetics of a web application.
+- **Exploring API Integration in Power BI**: Demonstrating how to connect Power BI to external APIs, like CoinGecko, to fetch and process data.
+
+## License
+This project is licensed under the **MIT License**. 
