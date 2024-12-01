@@ -28,3 +28,17 @@ To get started with this project, you'll need to follow these simple steps to se
 git clone https://github.com/michalogar/powerbi-webapp-coingecko.git
 ```
 - Or you can directly download the `.pbix` file from the repository if you prefer.
+2. Open the Power BI Project:
+- Open Power BI Desktop.
+- From the main screen, go to **File** > **Open** and select the `.pbix` file from the cloned repository or downloaded folder.
+3. Configure API Key:
+- In the Power BI file, open **Power Query** by clicking on **Transform Data**.
+- In the Power Query Editor, you will find a parameter named `api-key`. Replace the placeholder text with your API key to authenticate your requests to the CoinGecko API.
+4. Set the Number of Coins to Fetch:
+- In the Power Query Editor, you'll also find a parameter to specify the **number of coins** you'd like to fetch. Adjust this value based on how many cryptocurrencies you want the dashboard to display.
+5. Refresh the Data:
+- After configuring the parameters, go back to the main Power BI Desktop interface.
+- Click on **Refresh** to pull the latest cryptocurrency data from the CoinGecko API.
+6. Start Using the Dashboard:
+- Once the data is refreshed, you can start exploring the interactive cryptocurrency dashboard.
+
