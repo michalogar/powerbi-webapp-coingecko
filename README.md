@@ -185,7 +185,9 @@ One of the core aspects of this project is fetching cryptocurrency data from the
               delayedExecution
         ```
 
-
-
+3. Handling API Rate Limits
+   - To stay within the API’s rate limits, I used `Function.InvokeAfter()` as a delay mechanism into the recursive function
+     - [LINK Microsoft Documentation](https://learn.microsoft.com/en-us/powerquery-m/function-invokeafter)
+     - [LINK Chris Webb's BI Blog](https://blog.crossjoin.co.uk/2015/04/30/using-function-invokeafter-in-power-query/)
 
   
