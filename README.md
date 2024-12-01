@@ -193,7 +193,7 @@ One of the core aspects of this project is fetching cryptocurrency data from the
 ## Project Purpose
 This project was created with the following goals:
 - **Showcasing Web-App-Like Dashboards**: Highlighting how Power BI can be used to design interactive dashboards that mimic the functionality and aesthetics of a web application.
-- **Exploring API Integration in Power BI**: Demonstrating how to connect Power BI to external APIs, like CoinGecko, to fetch and process data.
+- **Utilize Advanced Power Query Techniques**: Showcase recursive functions and parameterized data retrieval for handling API rate limits and pagination.
 
 ## License
 This project is licensed under the **MIT License**. 
