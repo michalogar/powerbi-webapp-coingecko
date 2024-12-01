@@ -24,5 +24,7 @@ To get started with this project, you'll need to follow these simple steps to se
 ## Steps to Set Up:
 1. Clone the Repository or Download the .pbix File:
 - You can either clone this repository to your local machine using the following command:
-```git clone https://github.com/michalogar/powerbi-webapp-coingecko.git```
+```
+git clone https://github.com/michalogar/powerbi-webapp-coingecko.git
+```
 - Or you can directly download the `.pbix` file from the repository if you prefer.
