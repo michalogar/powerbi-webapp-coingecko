@@ -10,3 +10,19 @@ This project demonstrates the end-to-end process of building a web application i
 
 This project serves as a practical example of how to build a data-driven web application entirely within Power BI, integrating real data while maintaining efficient data handling techniques.
 
+## Setup and Installation
+To get started with this project, you'll need to follow these simple steps to set up Power BI Desktop and connect to the CoinGecko API.
+
+### Prerequisites:
+1. **Power BI Desktop**: Make sure you have **Power BI Desktop** installed. You can download it for free from [here](https://www.microsoft.com/en-us/download/details.aspx?id=58494).
+2. **CoinGecko API Access**: You will need to create a free account on CoinGecko and get an API key for accessing the data.
+- Go to the [CoinGecko](https://www.coingecko.com/) and sign up.
+- Go to [Developers Dashboard](https://www.coingecko.com/en/developers/dashboard) to generate API Key.
+- Follow the instructions to generate your API key.
+- You will use this key to authenticate your requests to the CoinGecko API.
+
+## Steps to Set Up:
+1. Clone the Repository or Download the .pbix File:
+- You can either clone this repository to your local machine using the following command:
+`git clone https://github.com/michalogar/powerbi-webapp-coingecko.git`
+- Or you can directly download the `.pbix` file from the repository if you prefer.
