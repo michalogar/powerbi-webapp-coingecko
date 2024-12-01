@@ -136,9 +136,54 @@ One of the core aspects of this project is fetching cryptocurrency data from the
           in
               #"Kept First Rows"
          ```
-
-
-
+     8. Example M Code for Recursive Function with `coin_id`:
+        ```
+                  (coin_id as text) =>
+          let
+              // Define the API URL with dynamic page offset
+              url = "https://api.coingecko.com/api/v3/coins/" & coin_id & "/market_chart?vs_currency=usd&days=365&interval=daily",
+          
+              // Define headers, including API key for authorization
+              headers = [
+                  Accept = "application/json",
+                  #"x-cg-demo-api-key" = #"api-key"
+              ],
+          
+              // Function to perform the API request and processing
+              apiFunction = () =>
+                  let
+                      // Make the API request with the defined headers
+                      response = Web.Contents(url, [Headers=headers]),
+          
+                      // Convert the binary response to text format
+                      responseText = Text.FromBinary(response),
+          
+                      // Parse the JSON response into a Power Query structure (table or record)
+                      result = Json.Document(responseText),
+          
+                      Source = Record.ToTable(result),
+                      #"Expanded Value" = Table.ExpandListColumn(Source, "Value"),
+                      #"Extracted Values" = Table.TransformColumns(#"Expanded Value", {"Value", each Text.Combine(List.Transform(_, Text.From), "|"), type text}),
+                      #"Split Column by Delimiter" = Table.SplitColumn(#"Extracted Values", "Value", Splitter.SplitTextByEachDelimiter({"|"}, QuoteStyle.Csv, false), {"DateTime", "Value"}),
+          
+                      // Convert the UNIX timestamp from milliseconds to DateTime format, adding a new "Date" column
+                      #"Added Custom" = Table.AddColumn(#"Split Column by Delimiter", "Date", each DateTime.From(#datetime(1970, 1, 1, 0, 0, 0) + #duration(0, 0, 0, Number.FromText([DateTime]) / 1000))),
+          
+                      // For current day there are two rows - condition remove one of them
+                      #"Filtered Rows" = Table.SelectRows(#"Added Custom", each (Number.Mod(Number.FromText([DateTime]), 100000) = 0)),
+          
+                      #"Removed Columns" = Table.RemoveColumns(#"Filtered Rows",{"DateTime"}),
+                      #"Pivoted Column" = Table.Pivot(#"Removed Columns", List.Distinct(#"Removed Columns"[Name]), "Name", "Value"),
+                      #"Changed Type" = Table.TransformColumnTypes(#"Pivoted Column",{{"Date", type date}, {"prices", type number}, {"market_caps", type number}, {"total_volumes", type number}}),
+                      #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"prices", "Prices"}, {"market_caps", "Market Caps"}, {"total_volumes", "Total Volumes"}})
+                  in
+                      #"Renamed Columns",
+          
+              // Invoke the function after a delay
+              delayedExecution = Function.InvokeAfter(apiFunction, #duration(0, 0, 0, 2.3)) // Delay of 1 second
+          in
+              delayedExecution
+        ```
 
 
 
