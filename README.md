@@ -16,6 +16,7 @@ To get started with this project, you'll need to follow these simple steps to se
 ### Prerequisites:
 1. **Power BI Desktop**: Make sure you have **Power BI Desktop** installed. You can download it for free from [here](https://www.microsoft.com/en-us/download/details.aspx?id=58494).
 2. **CoinGecko API Access**: You will need to create a free account on CoinGecko and get an API key for accessing the data.
+   
   - Go to the [CoinGecko](https://www.coingecko.com/) and sign up.
   - Go to [Developers Dashboard](https://www.coingecko.com/en/developers/dashboard) to generate API Key.
   - Follow the instructions to generate your API key.
