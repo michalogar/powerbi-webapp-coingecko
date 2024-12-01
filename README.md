@@ -138,7 +138,7 @@ One of the core aspects of this project is fetching cryptocurrency data from the
          ```
      8. Example M Code for Recursive Function with `coin_id`:
         ```
-                  (coin_id as text) =>
+          (coin_id as text) =>
           let
               // Define the API URL with dynamic page offset
               url = "https://api.coingecko.com/api/v3/coins/" & coin_id & "/market_chart?vs_currency=usd&days=365&interval=daily",
@@ -180,7 +180,7 @@ One of the core aspects of this project is fetching cryptocurrency data from the
                       #"Renamed Columns",
           
               // Invoke the function after a delay
-              delayedExecution = Function.InvokeAfter(apiFunction, #duration(0, 0, 0, 2.3)) // Delay of 1 second
+              delayedExecution = Function.InvokeAfter(apiFunction, #duration(0, 0, 0, 2.3)) // Delay in second
           in
               delayedExecution
         ```
