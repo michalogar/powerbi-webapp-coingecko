@@ -66,4 +66,81 @@ The Power BI report mimics the main CoinGecko website, providing a user-friendly
   - Additional insights and metrics specific to the selected cryptocurrency.
  ![image](https://github.com/user-attachments/assets/e521dfa5-ccab-4fa4-96a1-cee112d5b2a7)
 
+## API Rate Limiting & Recursive Functions in Power Query
+One of the core aspects of this project is fetching cryptocurrency data from the CoinGecko API while adhering to its rate limits and handling large datasets. Below is an explanation of how these challenges were addressed using Power Query.
+1. Understanding the API Rate Limits
+   - The CoinGecko API enforces a rate limit, restricting the number of requests you can make within a specified time (e.g., 30 requests per minute).
+   - Exceeding these limits results in failed requests and errors, which can disrupt data loading in Power BI.
+2. Recursive Functions for API Pagination
+   - CoinGecko’s API returns data in pages, with each page containing a limited number of records (or just for one coin). To fetch data for more coins, it is necessary to make multiple API calls.
+   - In Power Query, I implemented recursive functions to loop through pages of API results, combining them into a single dataset.
+   - Here’s how the recursive logic works:
+     1. Start by fetching the first page of results from the endpoint:
+        `https://api.coingecko.com/api/v3/coins/markets`
+        This endpoint returns, by default, a list of 100 coins with their IDs and some market data.
+     2. Extend the request to fetch up to 250 coins per page, optimizing data retrieval (1 page = 1 request).
+     3. Dynamically determine the number of pages to request:
+        - The number of pages is calculated based on the `No of Coins` parameter set by the user.
+      4. Use a recursive function to loop through the pages:
+         - The function makes repeated API calls for each page until all requested coins are fetched.
+      5. Extract all coin IDs from the retrieved data:
+         - These IDs are essential for fetching additional details, such as historical market data.
+      6. Create custom functions for specific endpoints:
+         - For example, to fetch historical market data, a function is created for the endpoint:
+           `https://api.coingecko.com/api/v3/coins/{coin_id}/market_chart`
+         - This function loops through all retrieved `coin_id`s to fetch detailed data for each coin.
+      7. Example M Code for Recursive Function:
+         ```
+         let
+    // Function to retrieve paginated data from the API
+    getData = (offset as number) =>
+    let
+        // Define the API URL with dynamic page offset
+        url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=250&sparkline=true&page=" & Number.ToText(offset),
+        
+        // Define headers, including API key for authorization
+        headers = [
+            Accept = "application/json",
+            #"x-cg-demo-api-key" = #"api-key"
+        ],
+        
+        // Make the API request with the defined headers
+        response = Web.Contents(url, [Headers=headers]),
+        
+        // Convert the binary response to text format
+        responseText = Text.FromBinary(response),
+        
+        // Parse the JSON response into a Power Query structure (table or record)
+        result = Json.Document(responseText)
+    in
+        result,
+
+    // Calculate the number of pages needed by dividing the total number of coins by 250 (items per page) and rounding up
+    pageNo = Number.RoundUp(#"No of Coins"/250, 0),
+
+    // Set the number of coins to filter
+    toFilter = #"No of Coins",
+
+    // Generate a list of offsets for pagination; adjust the second argument as needed for more pages
+    offsetRange = List.Numbers(1, pageNo),
+    
+    // Transform each offset into a separate API call, creating a list of results
+    Source = List.Transform(offsetRange, each getData(_)),
+
+    // Convert the list of lists into a single table
+    convertToTable = Table.FromList(Source, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+    
+    // Expand the data from each page into individual rows in the table
+    #"Expanded Column1" = Table.ExpandListColumn(convertToTable, "Column1"),
+    #"Kept First Rows" = Table.FirstN(#"Expanded Column1",toFilter)
+in
+    #"Kept First Rows"
+         ```
+
+
+
+
+
+
+
   
